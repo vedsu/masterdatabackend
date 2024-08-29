@@ -131,7 +131,7 @@ def update_webinar_panel(w_id):
         
         return webinar_data,200
        
-    elif request.method in =='POST':
+    elif request.method  =='POST':
         
         webinar_status = request.json.get("status")
         
@@ -334,7 +334,7 @@ def update_speaker_panel(s_id):
             return {"success": False, "message": str(e)}, 500
       
         
-    elif request.method in 'DELETE':
+    elif request.method == 'DELETE':
 
         response= Speaker.delete_speaker(s_id)
     
