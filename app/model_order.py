@@ -48,23 +48,23 @@ class Order:
         try:
             order = list(mongo.db.order_data.find({"id": o_id}))
             order_dict = {
-                "id": order ["id"],
-                "orderdate": order["orderdate"],
-                "webinardate": order["webinardate"],
-                "topic": order["topic"],
-                "session": order["session"], # Array
-                "customername": order["customerName"],
-                "customeremail": order["customerEmail"],
-                "billingemail": order["billingEmail"],
-                "orderamount": order["orderamount"],
-                "paymentstatus": order["paymentstatus"],
-                "country" : order["country"],
-                "state" : order["state"],
-                "city" : order["city"],
-                "zipcode" : order["zipcode"],
-                "address": order["address"],
-                "document": order["document"],
-                "website" : order["website"]
+                "id": order.get("id"),
+                "orderdate": order.get("orderdate"),
+                "webinardate": order.get("webinardate"),
+                "topic": order.get("topic"),
+                "session": order.get("session"), # Array
+                "customername": order.get("customerName"),
+                "customeremail": order.get("customerEmail"),
+                "billingemail": order.get("billingEmail"),
+                "orderamount": order.get("orderamount"),
+                "paymentstatus": order.get("paymentstatus"),
+                "country" : order.get("country"),
+                "state" : order.get("state"),
+                "city" : order.get("city"),
+                "zipcode" : order.get("zipcode"),
+                "address": order.get("address"),
+                "document": order.get("document"),
+                "website" : order.get("website")
 
             }
 
