@@ -1,30 +1,10 @@
 # Webinar component
 
 from app import mongo
-from datetime import datetime
-import pytz
+
 
 class Webinar():
-    
-    @staticmethod
-    def update_live_status():
-        # Get current time in EST
-        est = pytz.timezone('US/Eastern')
-        current_time_est = datetime.now(est)
-        try:
-    
-            # Update documents where the current time in EST is greater than the date_time and live is still true
-            result = mongo.db.webinar_data.update_many(
-                {
-                    "date_time": {"$lt": current_time_est},
-                    "sessionLive": True
-                },
-                {"$set": {"sessionLive": False}}
-            )
-            return {"success":True, "message":"live session updated"}
-        except Exception as e:
-            return {"success":False, "message":str(e)}
-        
+   
     @staticmethod
     def view_webinar():
         
