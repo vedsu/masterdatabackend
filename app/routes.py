@@ -127,11 +127,11 @@ def update_webinar_panel(w_id):
     
     webinar_data = Webinar.data_webinar(w_id)
     
-    if request.method in ['GET']:
+    if request.method  == 'GET':
         
         return webinar_data,200
        
-    elif request.method in ['POST']:
+    elif request.method in =='POST':
         
         webinar_status = request.json.get("status")
         
@@ -145,7 +145,7 @@ def update_webinar_panel(w_id):
                 
         
         
-    elif request.method in ['PUT']:
+    elif request.method =='PUT':
         
         topic = request.json.get("topic")
         speaker = request.json.get("speaker")
@@ -203,7 +203,7 @@ def update_webinar_panel(w_id):
         else:
             return response,304
         
-    elif request.method in ['DELETE']:
+    elif request.method =='DELETE':
          
         response = Webinar.delete_webinar(w_id)
         
@@ -273,13 +273,13 @@ def update_speaker_panel(s_id):
     
     
     
-    if request.method in 'GET':
+    if request.method == 'GET':
         speaker_data = Speaker.data_speaker(s_id)
        
         return jsonify(speaker_data),200        
             
     
-    elif request.method in 'POST':
+    elif request.method == 'POST':
 
         speaker_status = request.json.get("status")
         
@@ -292,42 +292,46 @@ def update_speaker_panel(s_id):
             return response,304
         
     
-    elif request.method in 'PUT':
-        image = request.files.get("photo")
-        speaker_name = request.form.get("name")
-        # initializing size of string
-        N = 3
-        
-        # using random.choices()
-        # generating random strings
-        res = ''.join(random.choices(string.ascii_uppercase +
-                                    string.digits, k=N))
-        bucket_name = "webinarprofs"
-        object_key = ''.join(speaker_name.split(" "))+"_"+res
-        s3_url = f"https://{bucket_name}.s3.amazonaws.com/speaker/{object_key}.jpeg"
-        s3_client.put_object(
-        Body=image, 
-        Bucket=bucket_name, 
-        Key=f'speaker/{object_key}.jpeg')
-        
-        speaker_dict = {
-            "id": s_id,
-            "name": speaker_name,
-            "email": request.form.get("email"),
-            "contact" : request.form.get("contact"),
-            "industry": request.form.get("industry"),
-            "status": "Active",
-            "bio": request.form.get("bio"),
-            "photo": s3_url,
+    elif request.method == 'PUT':
+        try:
+            image = request.files.get("photo")
+            speaker_name = request.form.get("name")
+            # initializing size of string
+            N = 3
             
-        }
+            # using random.choices()
+            # generating random strings
+            res = ''.join(random.choices(string.ascii_uppercase +
+                                        string.digits, k=N))
+            bucket_name = "webinarprofs"
+            object_key = ''.join(speaker_name.split(" "))+"_"+res
+            s3_url = f"https://{bucket_name}.s3.amazonaws.com/speaker/{object_key}.jpeg"
+            s3_client.put_object(
+            Body=image, 
+            Bucket=bucket_name, 
+            Key=f'speaker/{object_key}.jpeg')
+            
+            speaker_dict = {
+                "id": s_id,
+                "name": speaker_name,
+                "email": request.form.get("email"),
+                "contact" : request.form.get("contact"),
+                "industry": request.form.get("industry"),
+                "status": "Active",
+                "bio": request.form.get("bio"),
+                "photo": s3_url,
+                
+            }
+            
+            response= Speaker.update_speaker(s_id, speaker_dict)
+            if response.get("success") == True:
+                return response,200
         
-        response= Speaker.update_speaker(s_id, speaker_dict)
-        if response.get("success") == True:
-            return response,200
-    
-        else:
-            return response,304
+            else:
+                return response,500
+
+        except Exception as e:
+            return {"success": False, "message": str(e)}, 500
       
         
     elif request.method in 'DELETE':
@@ -338,7 +342,7 @@ def update_speaker_panel(s_id):
             
             return response, 202
         else:
-            return response, 204
+            return response, 400
 
 
 @app.route('/order_panel', methods =['GET'])
