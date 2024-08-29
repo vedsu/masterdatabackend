@@ -12,7 +12,7 @@ class Speaker():
         try:
             speaker_data = list(mongo.db.speaker_data.find({}))
             for speaker in speaker_data:
-                speaker_list.append(speaker["name"])
+                speaker_list.append(speaker.get("name"))
         
         except Exception as e:
             speaker_list = []
@@ -31,13 +31,13 @@ class Speaker():
                 
                 speaker_dict ={
 
-                "id":speaker["id"],
-                "name":speaker["name"],
-                "email":speaker["email"],
-                "contact": speaker["contact"],
-                "industry":speaker["industry"],
-                "status":speaker["status"],
-                "bio":speaker["bio"],
+                "id":speaker.get("id"),
+                "name":speaker.get("name"),
+                "email":speaker.get("email"),
+                "contact": speaker.get("contact"),
+                "industry":speaker.get("industry"),
+                "status":speaker.get("status"),
+                "bio":speaker.get("bio"),
                 }
                 speaker_list.append(speaker_dict)
         
@@ -64,15 +64,15 @@ class Speaker():
             speaker_data = list(mongo.db.speaker_data.find({"id":s_id}))
             speaker = speaker_data[0]
             speaker_dict={
-                "id": speaker ["id"],
-                "name": speaker ["name"],
-                "email":speaker ["email"],
-                "industry": speaker ["industry"],
-                "status": speaker ["status"],
-                "bio": speaker ["bio"],
-                "contact" :speaker ["contact"],
-                "photo": speaker["photo"],
-                "history": speaker["history"]
+                "id": speaker.get("id"),
+                "name": speaker.get("name"),
+                "email":speaker.get("email"),
+                "industry": speaker.get("industry"),
+                "status": speaker.get("status"),
+                "bio": speaker.get("bio"),
+                "contact" :speaker.get("contact"),
+                "photo": speaker.get("photo"),
+                "history": speaker.get("history")
             }
             
             speaker_info = speaker_dict
