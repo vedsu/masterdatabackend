@@ -12,7 +12,7 @@ class Webinar():
         webinar_list =[]
         try: 
         
-            webinar_data = list(mongo.db.webinar_data.find({}))
+            webinar_data = list(mongo.db.webinar_data.find({}).sort({"date_time":-1})
             for webinar in webinar_data:
                 webinar_dict ={
         
