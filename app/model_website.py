@@ -23,9 +23,9 @@ class Website():
         website_list = []
         
         try:
-            website_list_data = list(mongo.db.website_data.find({}))
+            website_list_data = list(mongo.db.website_data.find({}).sort({"website":1))
             for website in website_list_data:
-                website_list.append({"website":website["website"], "webinar":website["webinar"]})
+                website_list.append({"website":website.get("website"), "webinar":website.get("webinar")})
         except:
            website_list = []
         
