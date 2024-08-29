@@ -46,7 +46,8 @@ class Order:
     def order_data(o_id):
         order_dict={}
         try:
-            order = list(mongo.db.order_data.find({"id": o_id}))
+            order_data = list(mongo.db.order_data.find({"id": o_id}))
+            order = order_data[0]
             order_dict = {
                 "id": order.get("id"),
                 "orderdate": order.get("orderdate"),
