@@ -10,7 +10,7 @@ class Speaker():
         speaker_list =[]
          
         try:
-            speaker_data = list(mongo.db.speaker_data.find({}).sort({"name":1}))
+            speaker_data = list(mongo.db.speaker_data.find({"status":"Active"}).sort({"name":1}))
             for speaker in speaker_data:
                 speaker_list.append(speaker.get("name"))
         
