@@ -247,7 +247,7 @@ def create_speaker():
         s3_client.put_object(
         Body=image, 
         Bucket=bucket_name, 
-        Key=f'images/{object_key}.jpeg'
+        Key=f'speaker/{object_key}.jpeg'
         )
         speaker_data ={
             "id": s_id,
