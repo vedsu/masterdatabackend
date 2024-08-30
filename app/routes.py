@@ -294,10 +294,10 @@ def update_speaker_panel(s_id):
     
     elif request.method == 'PUT':
         try:
-            image = request.files.get("photo")
+            s3_url = request.form.get("photo")
             speaker_name = request.form.get("name")
             # initializing size of string
-            N = 3
+            """N = 3
             
             # using random.choices()
             # generating random strings
@@ -309,7 +309,7 @@ def update_speaker_panel(s_id):
             s3_client.put_object(
             Body=image, 
             Bucket=bucket_name, 
-            Key=f'speaker/{object_key}.jpeg')
+            Key=f'speaker/{object_key}.jpeg')"""
             
             speaker_dict = {
                 "id": s_id,
