@@ -380,6 +380,85 @@ def category():
         else:
             return response,403
         
+
+
+@app.route('/newsletter_panel', methods = ['GET'])
+def view_newsletter():
+    if request.method == 'GET':
+        response = Newsletter.count_newsletter()
+        return response,200
+#masterdata backend
+@app.route('/newsletter_panel/<n_id>', methods = ['GET','POST'])
+def update_newsletter(n_id):
+   
+        
+    if request.method == 'POST':
+        newsletter_status = request.json.get("status")
+        response = Newsletter.edit_newsletter(n_id, newsletter_status)
+        if response.get("success") == True:
+            return response.get("message"),201
+        else:
+            return response.get("message"),304
+# newsletter section -> updating for masterdata backend
+# masterdatabackend
+
+@app.route('/newsletter_panel/create_newsletter', methods = ['POST'])
+def create_newsletter():
+    newsletters = Newsletter.count_newsletter() # edit this function to count_newsletter
+    id = str(len(newsletters)+1)
+
+    if request.method == 'POST':
+        newsletter_topic = request.form.get("topic")
+        category = request.form.get("category")
+        website = request.form.get("website")
+        description = request.form.get("description")
+        price = request.form.get("price")
+        document = request.form.get("document")
+        published_date = request.form.get("published_date")
+        dt = datetime.strptime(published_date,"%Y-%m-%dT%H:%M:%S.%fZ" )
+        date_str = dt.strftime("%Y-%m-%d")
+
+        thumbnail = request.files.get("thumbnail")
+        
+
+        N=3
+        res = ''.join(random.choices(string.ascii_uppercase+string.digits, k=N))
+        n_id = res+"_"+id
+        bucket_name = "webinarprofs"
+        object_key = ''.join(newsletter_topic.split(" "))+n_id
+        # object_key_document = ''.join(newsletter_topic.split(" "))+"_"+id
+        try:
+            s3_client.put_object(
+            Body=thumbnail, 
+            Bucket=bucket_name, 
+            Key=f'newsletter/{object_key}.jpeg'
+            )
+            s3_url_thumbnail = f"https://{bucket_name}.s3.amazonaws.com/newsletter/{object_key}.jpeg"
+           
+            
+        except:
+            s3_url_thumbnail = None
+            
+        
+        newsletter_data = {
+            "id":n_id,
+            "topic": newsletter_topic,
+            "category": category,
+            "description": description,
+            "website": website,
+            "price": price,
+            "status": "Active",
+            "thumbnail":s3_url_thumbnail,
+            "document":document,
+            "published_date":date_str,
+
+        }
+
+        response = Newsletter.create_newsletter(newsletter_data)
+        if response.get("success") == True:
+            return response,201
+        else:
+            return response,400
 @app.route('/website_panel', methods= ['GET', 'POST'])
 def website_utility():
     
