@@ -423,6 +423,8 @@ def create_newsletter():
         
         # Convert to desired format for database (YYYY-MM-DD HH:MM:SS)
         formatted_date = date_obj.strftime('%Y-%m-%d %H:%M:%S')
+        # Convert to ISO 8601 format (YYYY-MM-DDTHH:MM:SS.sss+00:00)
+        iso_format_date = date_obj.isoformat()
         # # Parse the date string to datetime object
         # date_obj = datetime.strptime(published_date, '%a %b %d %Y %H:%M:%S GMT%z (%Z)')
         # # dt = datetime.strptime(published_date,"%Y-%m-%dT%H:%M:%S.%fZ" )
@@ -462,7 +464,7 @@ def create_newsletter():
             "status": "Active",
             "thumbnail":s3_url_thumbnail,
             "document":document,
-            "published_date":formatted_date,
+            "published_date":iso_format_date,
 
         }
 
