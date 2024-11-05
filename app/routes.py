@@ -9,6 +9,7 @@ from app.model_speaker import Speaker
 from app.model_order import Order
 from app.model_category import Category
 from app.model_website import Website
+from app.model_newsletter import Newsletter
 
 import string
 import random
