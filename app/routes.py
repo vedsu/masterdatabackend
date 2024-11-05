@@ -416,8 +416,12 @@ def create_newsletter():
         price = request.form.get("price")
         document = request.form.get("document")
         published_date = request.form.get("published_date")
-        dt = datetime.strptime(published_date,"%Y-%m-%dT%H:%M:%S.%fZ" )
-        date_str = dt.strftime("%Y-%m-%d")
+        # Parse the date string to datetime object
+        date_obj = datetime.strptime(published_date, '%a %b %d %Y %H:%M:%S GMT%z (%Z)')
+        # dt = datetime.strptime(published_date,"%Y-%m-%dT%H:%M:%S.%fZ" )
+        # Convert to desired format for database (YYYY-MM-DD HH:MM:SS)
+        formatted_date = date_obj.strftime('%Y-%m-%d %H:%M:%S')
+        # date_str = dt.strftime("%Y-%m-%d")
 
         thumbnail = request.files.get("thumbnail")
         
@@ -451,7 +455,7 @@ def create_newsletter():
             "status": "Active",
             "thumbnail":s3_url_thumbnail,
             "document":document,
-            "published_date":date_str,
+            "published_date":formatted_date,
 
         }
 
