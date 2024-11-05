@@ -385,7 +385,7 @@ def category():
 @app.route('/newsletter_panel', methods = ['GET'])
 def view_newsletter():
     if request.method == 'GET':
-        response = Newsletter.count_newsletter()
+        response = Newsletter.list_newsletter()
         return response,200
 #masterdata backend
 @app.route('/newsletter_panel/<n_id>', methods = ['GET','POST'])
