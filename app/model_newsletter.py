@@ -35,7 +35,7 @@ class Newsletter():
     @staticmethod
     def edit_newsletter(n_id,newsletter_status):
         try:
-            mongo.db.newsletter_data.update_one({"n_id":n_id},{"$set": {"status": newsletter_status}})
+            mongo.db.newsletter_data.update_one({"id":n_id},{"$set": {"status": newsletter_status}})
             return {"success":True, "message":"status update successfull"}
         
         except Exception as e:
