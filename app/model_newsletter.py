@@ -21,6 +21,7 @@ class Newsletter():
                     "description":newsletter.get("description"),
                     "website":newsletter.get("website"),
                     "price":newsletter.get("price"),
+                    "status":newsletter.get("status"),
                     "thumbnail":newsletter.get("thumbnail"),
                     "document":newsletter.get("document"),
 
