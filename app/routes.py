@@ -36,7 +36,7 @@ def master_login():
 @app.route('/coupon_panel', methods= ['GET'])
 def view_coupon():
     coupon_list = Order.view_coupon()
-     if request.method =='GET':
+    if request.method =='GET':
        
         return jsonify(coupon_list),200
       
