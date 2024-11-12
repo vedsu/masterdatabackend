@@ -35,7 +35,7 @@ class Order:
              return ({"success":False, "message":str(e)}),403
             
     @staticmethod
-    def update_coupon(c_id):
+    def update_coupon(c_id,coupon_status):
         try:
             mongo.db.coupon_data.update_one({"id":c_id},{"$set":{"status":coupon_status}})
             return ({"success":True, "message":"coupon status updated"}),201
