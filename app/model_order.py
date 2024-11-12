@@ -29,7 +29,7 @@ class Order:
     @staticmethod
     def new_coupon(coupon_data):
         try:
-            mongo.db.coupon_data.insert_one({coupon_data})
+            mongo.db.coupon_data.insert_one(coupon_data)
             return ({"success":True, "message":"coupon inserted"}),201
         except Exception as e:
              return ({"success":False, "message":str(e)}),403
