@@ -4,11 +4,27 @@ from app import mongo
 
 class Order:
 
+    
+    
+    @staticmethod
+    def new_coupon(coupon_data):
+        try:
+            mongo.db.coupon_data.insert_one({coupon_data})
+            return ({"success":True, "message":"coupon inserted"}),201
+        except Exception as e:
+             return ({"success":False, "message":str(e)}),403
+            
+    @staticmethod
+    def update_coupon(c_id):
+        try:
+            mongo.db.coupon_data.update_one({"id":c_id},{"$set":{"status":coupon_status}})
+            return ({"success":True, "message":"coupon status updated"}),201
+        except Exception as e:
+             return ({"success":False, "message":str(e)}),403
+    
     @staticmethod
     def view_order():
         order_list =[]
-        
-        
 
         try:
             order_data = list(mongo.db.order_data.find({}))
