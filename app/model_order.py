@@ -5,6 +5,26 @@ from app import mongo
 class Order:
 
     
+    @staticmethod
+    def view_coupon():
+        coupon_list = [] 
+        try:
+            coupon_data = list(mongo.db.coupon_data.find({}))
+            for coupon in coupon_data:
+                
+                    coupon_dict = {
+                    "id": coupon.get("id"),
+                    "coupon": coupon.get("coupon"),
+                    "type": coupon.get("type"),
+                    "amount": coupon.get("amount"),
+                    "status": coupon.get("status")
+                    }
+                    coupon_list.append(coupon_dict)
+        except Exception as e:
+            coupon_list = {"error": str(e)}           
+        
+        return coupon_list
+    
     
     @staticmethod
     def new_coupon(coupon_data):
