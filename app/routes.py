@@ -32,6 +32,48 @@ def master_login():
         response_login = Login.authenticate(login_email, login_password)
         return response_login
     
+
+@app.route('/coupon_panel', methods= ['GET'])
+def view_coupon():
+    coupon_list = Order.view_coupon()
+     if request.method =='GET':
+       
+        return jsonify(coupon_list),200
+      
+@app.route('/coupon_panel/<c_id>', methods= ['GET','PUT','POST','DELETE'])
+def update_coupon_panel(c_id):    
+    
+    if request.method  =='POST':
+        coupon_status = request.json.get("status")
+        response = Order.update_coupon(c_id, coupon_status)
+        return response
+        
+       
+
+
+@app.route('/coupon_panel/create_coupon', methods= ['POST'])
+def create_coupon():
+    coupon_list = Order.view_coupon()
+    id = str(len(list(coupon_list)))
+    N = 3
+    res = ''.join(random.choices(string.ascii_uppercase + string.digits, k=N))
+    c_id = res+"_"+id
+    if request.method == "POST":
+        coupon = request.json.get("coupon")
+        type = request.json.get("type")
+        amount = request.json.get("amount")
+        status = "Active"
+        coupon_data = {
+            "id":c_id, 
+            "coupon":coupon,
+            "type":type,
+            "amount":amount,
+            "status":status
+        }
+        response = Order.new_coupon(coupon_data)
+        return response
+
+
 @app.route('/webinar_panel', methods = ['GET'])
 def webinar_panel():
     
@@ -56,6 +98,9 @@ def process_url(topic):
     sentence = sentence.replace(' ', '-')
     
     return sentence
+
+
+    
 
 @app.route('/webinar_panel/create_webinar', methods= ['POST'])
 def create_webinar():
