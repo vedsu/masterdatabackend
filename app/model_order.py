@@ -66,7 +66,7 @@ class Order:
                     "city": order.get("city"),
                     "zipcode": order.get("zipcode"),
                     "address": order.get("address"),
-                    "document": order.get("document"),
+                    "document": order.get("document_ist"),
                     "website": order.get("website")
                 }
 
@@ -100,7 +100,7 @@ class Order:
                 "city" : order.get("city"),
                 "zipcode" : order.get("zipcode"),
                 "address": order.get("address"),
-                "document": order.get("document"),
+                "document": order.get("document_ist"),
                 "website" : order.get("website")
 
             }
