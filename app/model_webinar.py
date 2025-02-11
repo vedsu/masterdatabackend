@@ -1,9 +1,73 @@
 # Webinar component
 
 from app import mongo
-
+from datetime import datetime, timedelta
 
 class Webinar():
+
+    #Upcoming Webinars
+    @static method
+    def upcoming webinar():
+         webinar_list = []
+         try:
+            # Get the current UTC time
+            now = datetime.utcnow()
+            
+            # Get the time range (next 2 days)
+            end_time = now + timedelta(days=2)
+            # Query to find upcoming webinars within the next 2 days
+            query = {
+                "date_time": {
+                    "$gte": now,  # Greater than or equal to the current time
+                    "$lte": end_time  # Less than or equal to 2 days from now
+                }
+            }
+
+            webinar_data = list(mongo.db.webinar_data.find(query).sort({"date_time:-1})
+            for webinar in webinar_data:
+                webinar_dict ={
+        
+                "id":webinar.get("id"),
+
+                "topic":webinar.get("topic"),
+                "industry":webinar.get("industry"),
+                "speaker":webinar.get("speaker"),
+                "date":webinar.get("date_time"),
+                "time":webinar.get("time"),
+                "timeZone":webinar.get("timeZone"),
+                "duration":webinar.get("duration"),
+                "category":webinar.get("category"),
+                
+                "sessionLive":webinar.get("sessionLive"),
+                "priceLive":webinar.get("priceLive"),
+                "urlLive":webinar.get("urlLive"),
+                
+                "sessionRecording":webinar.get("sessionRecording"),
+                "priceRecording":webinar.get("priceRecording"),
+                "urlRecording":webinar.get("urlRecording"),
+
+                "sessionDigitalDownload":webinar.get("sessionDigitalDownload"),
+                "priceDigitalDownload":webinar.get("priceDigitalDownload"),
+                "urlDigitalDownload":webinar.get("urlDigitalDownload"),
+                
+                "sessionTranscript":webinar.get("sessionTranscript"),
+                "priceTranscript":webinar.get("priceTranscript"),
+                "urlTranscript":webinar.get("urlTranscript"),
+
+                "status":webinar.get("status"),
+                "webinar_url": webinar.get("webinar_url"),
+                "description":webinar.get("description"),
+                    
+                    }
+                    
+                webinar_list.append(webinar_dict)
+
+         except Exception as e:
+                webinar_list = []
+        
+        
+         return webinar_list                                                               
+                                                                   
    
     @staticmethod
     def view_webinar():
