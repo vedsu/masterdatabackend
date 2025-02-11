@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 class Webinar():
 
     #Upcoming Webinars
-    @static method
+    @staticmethod
     def upcoming_webinar():
          webinar_list = []
          try:
