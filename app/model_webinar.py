@@ -13,8 +13,8 @@ class Webinar():
             # Get the current UTC time
             now = datetime.utcnow()
             
-            # Get the time range (next 2 days)
-            end_time = now + timedelta(days=2)
+            # Get the time range (next 3 days)
+            end_time = now + timedelta(days=3)
             # Query to find upcoming webinars within the next 2 days
             query = {
                 "date_time": {
