@@ -518,6 +518,14 @@ def create_newsletter():
             return response,201
         else:
             return response,400
+
+#upcoming webinars
+@app.route('/ucw', methods = 'GET')
+def upcoming_webinarlist():
+    if request.method == 'GET':
+        ucw_list = Webinar.upcoming_webinar()
+        return jsonify(ucw_list), 200
+
 @app.route('/website_panel', methods= ['GET', 'POST'])
 def website_utility():
     
