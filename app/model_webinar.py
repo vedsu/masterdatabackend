@@ -7,7 +7,7 @@ class Webinar():
 
     #Upcoming Webinars
     @static method
-    def upcoming webinar():
+    def upcoming_webinar():
          webinar_list = []
          try:
             # Get the current UTC time
