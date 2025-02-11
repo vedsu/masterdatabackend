@@ -524,12 +524,12 @@ def create_newsletter():
 def submit_entry():
     data = request.json
     # collection.insert_one(data)
-    monog.db.texteditor.insert_one(data)
+    mongo.db.texteditor.insert_one(data)
     return jsonify({"message": "Data saved successfully!"}), 201
 
 @app.route("/get_entries", methods=["GET"])
 def get_entries():
-    entries = list(mongo.db.texteditor.find({}, {"_id":0})
+    entries = list(mongo.db.texteditor.find({}, {"_id":0}))
     # entries = list(collection.find({}, {"_id": 0}))
     return jsonify(entries)
 
