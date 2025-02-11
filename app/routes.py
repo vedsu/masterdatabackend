@@ -520,7 +520,7 @@ def create_newsletter():
             return response,400
 
 #upcoming webinars
-@app.route('/ucw', methods = 'GET')
+@app.route('/ucw', methods = ['GET'])
 def upcoming_webinarlist():
     if request.method == 'GET':
         ucw_list = Webinar.upcoming_webinar()
