@@ -519,6 +519,21 @@ def create_newsletter():
         else:
             return response,400
 
+#text editor dummy model
+@app.route("/submit", methods=["POST"])
+def submit_entry():
+    data = request.json
+    # collection.insert_one(data)
+    monog.db.texteditor.insert_one(data)
+    return jsonify({"message": "Data saved successfully!"}), 201
+
+@app.route("/get_entries", methods=["GET"])
+def get_entries():
+    entries = list(mongo.db.texteditor.find({}, {"_id":0})
+    # entries = list(collection.find({}, {"_id": 0}))
+    return jsonify(entries)
+
+
 #upcoming webinars
 @app.route('/ucw', methods = ['GET'])
 def upcoming_webinarlist():
