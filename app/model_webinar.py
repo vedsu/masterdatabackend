@@ -23,7 +23,7 @@ class Webinar():
                 }
             }
 
-            webinar_data = list(mongo.db.webinar_data.find(query).sort({"date_time:-1})
+            webinar_data = list(mongo.db.webinar_data.find(query).sort({"date_time":-1})
             for webinar in webinar_data:
                 webinar_dict ={
         
