@@ -535,6 +535,13 @@ def get_entries():
 
 
 #upcoming webinars
+@app.route('/g_csv', methods = ['GET'])
+def generate_csv():
+    if request.method == 'GET':
+        s3_url = https://webinarprofs.s3.amazonaws.com/websiteorder/070125_HCP_E67MTADQ.pdf
+        return jsonify(s3_url), 200
+
+#upcoming webinars
 @app.route('/ucw', methods = ['GET'])
 def upcoming_webinarlist():
     if request.method == 'GET':
