@@ -21,6 +21,8 @@ from PIL import Image
 import os
 from datetime import datetime
 from app import s3_client, s3_resource
+import pandas as pd
+from io import StringIO
 
 
 @app.route('/', methods =['POST'])
@@ -537,10 +539,32 @@ def get_entries():
 #upcoming webinars
 @app.route('/g_csv', methods = ['GET'])
 def generate_csv():
+    s3_url = ""
     if request.method == 'GET':
         order_list = Order.view_order()
-        s3_url = "https://webinarprofs.s3.amazonaws.com/websiteorder/070125_HCP_E67MTADQ.pdf"
-        return jsonify(order_list), 200
+        # Convert to DataFrame
+        df = pd.DataFrame(order_list)
+        
+        # Save DataFrame to CSV in memory
+        csv_buffer = StringIO()
+        df.to_csv(csv_buffer, index=False)
+        # Get the current date and time
+        current_datetime = datetime.now()
+        file_name = current_datetime
+        try:
+            s3_client.put_object(
+            Body=csv_buffer.getvalue(), 
+            Bucket="webinarprofs", 
+            Key=f'misc/{file_name}.csv'
+            )
+            s3_url = f"https://{bucket_name}.s3.amazonaws.com/misc/{file_name}.csv"
+           
+            
+        except:
+            s3_url = None
+        
+        # s3_url = "https://webinarprofs.s3.amazonaws.com/websiteorder/070125_HCP_E67MTADQ.pdf"
+        return jsonify(s3_url), 200
 
 #upcoming webinars
 @app.route('/ucw', methods = ['GET'])
