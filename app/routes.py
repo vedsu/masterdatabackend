@@ -560,8 +560,8 @@ def generate_csv():
             s3_url = f"https://{bucket_name}.s3.amazonaws.com/misc/{file_name}.csv"
            
             
-        except:
-            s3_url = None
+        except Exception as e:
+            s3_url = str(e)
         
         # s3_url = "https://webinarprofs.s3.amazonaws.com/websiteorder/070125_HCP_E67MTADQ.pdf"
         return jsonify(s3_url), 200
