@@ -551,10 +551,11 @@ def generate_csv():
         # Get the current date and time
         current_datetime = datetime.now()
         file_name = current_datetime
+        bucket_name = "webinarprofs"
         try:
             s3_client.put_object(
             Body=csv_buffer.getvalue(), 
-            Bucket="webinarprofs", 
+            Bucket=bucket_name, 
             Key=f'misc/{file_name}.csv'
             )
             s3_url = f"https://{bucket_name}.s3.amazonaws.com/misc/{file_name}.csv"
