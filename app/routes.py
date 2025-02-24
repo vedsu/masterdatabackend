@@ -538,8 +538,9 @@ def get_entries():
 @app.route('/g_csv', methods = ['GET'])
 def generate_csv():
     if request.method == 'GET':
+        order_list = Order.view_order()
         s3_url = "https://webinarprofs.s3.amazonaws.com/websiteorder/070125_HCP_E67MTADQ.pdf"
-        return jsonify(s3_url), 200
+        return jsonify(order_list), 200
 
 #upcoming webinars
 @app.route('/ucw', methods = ['GET'])
