@@ -288,7 +288,7 @@ def create_speaker():
                                     string.digits, k=N))
         s_id = res+"_"+id
         
-        bucket_name = "webinarprofs"
+        bucket_name = "webinarprof"
         object_key = ''.join(speaker_name.split(" "))+"_"+res
         s3_url = f"https://{bucket_name}.s3.amazonaws.com/speaker/{object_key}.jpeg"
         image = request.files.get("photo")
@@ -351,7 +351,7 @@ def update_speaker_panel(s_id):
             # generating random strings
             res = ''.join(random.choices(string.ascii_uppercase +
                                         string.digits, k=N))
-            bucket_name = "webinarprofs"
+            bucket_name = "webinarprof"
             object_key = ''.join(speaker_name.split(" "))+"_"+res
             s3_url = f"https://{bucket_name}.s3.amazonaws.com/speaker/{object_key}.jpeg"
             s3_client.put_object(
@@ -485,7 +485,7 @@ def create_newsletter():
         N=3
         res = ''.join(random.choices(string.ascii_uppercase+string.digits, k=N))
         n_id = res+"_"+id
-        bucket_name = "webinarprofs"
+        bucket_name = "webinarprof"
         object_key = ''.join(newsletter_topic.split(" "))+n_id
         # object_key_document = ''.join(newsletter_topic.split(" "))+"_"+id
         try:
@@ -551,7 +551,7 @@ def generate_csv():
         # Get the current date and time
         current_datetime = datetime.now()
         file_name = current_datetime
-        bucket_name = "webinarprofs"
+        bucket_name = "webinarprof"
         try:
             s3_client.put_object(
             Body=csv_buffer.getvalue(), 
